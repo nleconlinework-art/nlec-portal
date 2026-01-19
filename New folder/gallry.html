@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | NLEC India</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #f4f7f6; padding: 20px; }
+
+        /* टॉप बार और होम लोगो */
+        .top-nav {
+            display: flex;
+            justify-content: flex-end; /* दाईं ओर करने के लिए */
+            padding-bottom: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .home-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .home-logo img {
+            width: 60px; /* लोगो का साइज */
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid #003366;
+            padding: 2px;
+            background: #fff;
+        }
+
+        .home-logo span {
+            font-size: 10px;
+            color: #003366;
+            font-weight: bold;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+
+        .home-logo:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-container { max-width: 1200px; margin: 0 auto; }
+        
+        .header-section { text-align: center; margin-bottom: 40px; margin-top: -20px; }
+        .header-section h1 { color: #003366; font-size: 32px; text-transform: uppercase; }
+        .header-section div { width: 80px; height: 4px; background: #ff6600; margin: 10px auto; }
+
+        /* Gallery Grid */
+        .gallery-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 20px; 
+        }
+
+        .gallery-item { 
+            background: #fff; border-radius: 10px; overflow: hidden; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: 0.4s;
+            position: relative;
+        }
+        
+        .gallery-item:hover { transform: translateY(-10px); }
+        .gallery-item img { width: 100%; height: 220px; object-fit: cover; display: block; }
+
+        .img-caption { 
+            padding: 15px; text-align: center; font-size: 14px; 
+            font-weight: bold; color: #444; background: #fff;
+        }
+
+        @media (max-width: 600px) {
+            .gallery-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-nav">
+        <a href="home.html" class="home-logo">
+            <img src="logo.png" alt="Home" onerror="this.src='https://cdn-icons-png.flaticon.com/512/25/25694.png'">
+            <span>HOME</span>
+        </a>
+    </div>
+
+    <div class="gallery-container">
+        <div class="header-section">
+            <h1>Our Events Gallery</h1>
+            <div></div>
+            <p>NLEC India के विशेष कार्यक्रमों की झलक</p>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="event1.jpg" alt="Event" onerror="this.src='https://via.placeholder.com/400x300?text=Annual+Function'">
+                <div class="img-caption">Annual Day Celebration</div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="event2.jpg" alt="Workshop" onerror="this.src='https://via.placeholder.com/400x300?text=Computer+Class'">
+                <div class="img-caption">Digital Literacy Workshop</div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="event3.jpg" alt="Awards" onerror="this.src='https://via.placeholder.com/400x300?text=Prize+Distribution'">
+                <div class="img-caption">Student Excellence Awards</div>
+            </div>
+            
+            </div>
+    </div>
+
+</body>
+</html>

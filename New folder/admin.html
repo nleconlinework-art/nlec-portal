@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>NLEC Admin Dashboard | Verification System</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif; }
+        body { background:#f0f2f5; display: flex; }
+        
+        /* Sidebar & Layout */
+        .sidebar { width: 250px; height: 100vh; background: #003366; color: white; padding: 20px; position: fixed; }
+        .main { margin-left: 250px; width: 100%; padding: 30px; }
+        .table-container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 12px; border-bottom: 1px solid #ddd; text-align: left; }
+        th { background: #f8f9fa; color: #003366; }
+
+        /* ID CARD MODAL */
+        #idCardModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000; overflow-y: auto; }
+        
+        /* Professional ID Card Design */
+        .id-card-box { width:320px; background:white; margin:50px auto; border-radius:12px; overflow:hidden; border:1px solid #003366; position:relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .id-header { background:#003366; color:white; text-align:center; padding:15px 10px; border-bottom: 3px solid #ff6600; }
+        .id-header h2 { font-size:14px; margin-bottom: 2px; }
+        .id-header p { font-size:9px; letter-spacing: 0.5px; }
+        
+        .id-body { padding:15px; text-align:center; background: radial-gradient(circle, #ffffff 60%, #f0f7ff 100%); }
+        .id-photo { width:90px; height:110px; border:2px solid #003366; border-radius: 5px; margin-bottom:10px; object-fit: cover; }
+        
+        .id-details { text-align:left; font-size:12px; line-height:1.8; margin-bottom: 10px; }
+        .id-details b { color: #003366; display: inline-block; width: 70px; }
+
+        .qr-section { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; border-top: 1px dashed #ccc; padding-top: 10px; }
+        .qr-code { width: 60px; height: 60px; }
+        .id-footer-text { font-size: 8px; text-align: right; color: #555; line-height: 1.2; }
+
+        .btn-action { background:#ff6600; color:white; border:none; padding:6px 12px; cursor:pointer; border-radius:4px; font-weight: bold; }
+        .no-print { text-align:center; padding:15px; background: #eee; }
+
+        @media print {
+            body * { visibility: hidden; }
+            #idCardModal, #idCardModal * { visibility: visible; }
+            #idCardModal { position: absolute; left: 0; top: 0; background:none; }
+            .no-print { display:none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2 style="border-bottom: 1px solid #ff6600; padding-bottom:10px;">NLEC ADMIN</h2>
+    <ul style="list-style:none; margin-top:20px;">
+        <li style="padding:10px 0; color:#ddd;">📊 Dashboard</li>
+        <li style="padding:10px 0; color:white; font-weight:bold;">🎓 Student Records</li>
+    </ul>
+</div>
+
+<div class="main">
+    <div class="table-container">
+        <h2 style="color:#003366;">Verified Admission Records</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Course</th>
+                    <th>Mobile</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <tr><td colspan="4" style="text-align:center; padding:20px;">Fetching Data from Google Sheets...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="idCardModal">
+    <div class="id-card-box">
+        <div class="id-header">
+            <h2>NEXT LEVEL EDUCATIONAL COUNCIL</h2>
+            <p>Regd. under Govt. of India | ISO 9001:2015</p>
+        </div>
+        <div class="id-body">
+            <img id="idPhoto" src="" class="id-photo">
+            <div class="id-details">
+                <p><b>NAME:</b> <span id="idName"></span></p>
+                <p><b>FATHER:</b> <span id="idFather"></span></p>
+                <p><b>COURSE:</b> <span id="idCourse"></span></p>
+                <p><b>REG NO:</b> <span id="idReg"></span></p>
+            </div>
+            
+            <div class="qr-section">
+                <div style="text-align:left;">
+                    <img src="https://i.imgur.com/8QO9y8B.png" style="width:70px; display:block; margin-bottom:2px;">
+                    <span style="font-size:8px; font-weight:bold;">Authorized Signatory</span>
+                </div>
+                <div>
+                    <img id="idQR" src="" class="qr-code">
+                    <p style="font-size:7px; font-weight:bold; color:#003366;">Scan to Verify</p>
+                </div>
+            </div>
+        </div>
+        <div class="no-print">
+            <button onclick="window.print()" style="padding:8px 15px; background:#28a745; color:white; border:none; border-radius:4px; cursor:pointer;">Print Card</button>
+            <button onclick="document.getElementById('idCardModal').style.display='none'" style="padding:8px 15px; background:#d32f2f; color:white; border:none; border-radius:4px; cursor:pointer;">Close</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz8YJ3V_Utrv71oD8mXJDeHT_ztOGPCSCEVilgysXWTMojwVcKHYDkK0zcyhv8JsnHa/exec";
+
+    async function loadData() {
+        try {
+            const response = await fetch(SCRIPT_URL);
+            const data = await response.json();
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = "";
+
+            data.forEach((student) => {
+                let row = `<tr>
+                    <td><b>${student.StudentName}</b></td>
+                    <td>${student.Course}</td>
+                    <td>${student.Mobile}</td>
+                    <td>
+                        <button class="btn-action" onclick='generateID(${JSON.stringify(student)})'>ID Card</button>
+                    </td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+        } catch (e) {
+            document.getElementById('tableBody').innerHTML = "<tr><td colspan='4'>Error: Google Sheet is not responding.</td></tr>";
+        }
+    }
+
+    function generateID(student) {
+        document.getElementById('idName').innerText = student.StudentName.toUpperCase();
+        document.getElementById('idFather').innerText = student.FatherName.toUpperCase();
+        document.getElementById('idCourse').innerText = student.Course;
+        
+        // रजिस्ट्रेशन नंबर बनाना (NLEC + Year + Random No)
+        const regNo = "NLEC/2026/" + Math.floor(Math.random()*9000 + 1000);
+        document.getElementById('idReg').innerText = regNo;
+        
+        // फोटो लिंक सेट करना
+        document.getElementById('idPhoto').src = student.PhotoURL;
+
+        // QR Code जनरेट करना (इसमें छात्र की डिटेल्स एन्कोड की गई हैं)
+        const qrData = `Student: ${student.StudentName}, Course: ${student.Course}, Reg: ${regNo}`;
+        const qrUrl = `https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=${encodeURIComponent(qrData)}&choe=UTF-8`;
+        document.getElementById('idQR').src = qrUrl;
+
+        // पॉपअप दिखाना
+        document.getElementById('idCardModal').style.display = 'block';
+    }
+
+    window.onload = loadData;
+</script>
+
+</body>
+</html>

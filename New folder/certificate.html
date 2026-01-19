@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Certificate | NLEC India</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: 'Times New Roman', Times, serif; background: #f0f2f5; margin: 0; padding: 10px; display: flex; flex-direction: column; align-items: center; }
+        
+        .search-container { max-width: 500px; margin-bottom: 20px; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; }
+        input { padding: 10px; width: 60%; border: 1px solid #ddd; border-radius: 5px; }
+        .view-btn { padding: 10px 20px; background: #003366; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+
+        /* A4 Landscape Fix for 100% Scale */
+        #certificate-area { 
+            display: none; 
+            width: 297mm; 
+            height: 210mm; 
+            background: #fffdf5; 
+            padding: 8mm; 
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+
+        .golden-border {
+            height: 100%;
+            width: 100%;
+            border: 12px solid #d4af37;
+            padding: 30px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: white;
+            outline: 2px solid #d4af37;
+            outline-offset: -20px;
+        }
+
+        /* Institute Name in Single Line */
+        .cert-header { text-align: center; border-bottom: 2px solid #d4af37; padding-bottom: 10px; margin-bottom: 15px; }
+        .inst-name-row { display: flex; align-items: center; justify-content: center; gap: 15px; white-space: nowrap; }
+        .inst-name-row img { height: 75px; }
+        .inst-name-row h1 { 
+            color: #d32f2f; 
+            margin: 0; 
+            font-size: 38px; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+        }
+
+        .reg-strip { font-size: 11px; color: #444; margin-top: 8px; font-weight: bold; }
+        .govt-logos { margin-top: 10px; display: flex; gap: 8px; justify-content: center; }
+        .govt-logos img { height: 35px; border: 1px solid #ddd; padding: 2px; }
+
+        .cert-body { text-align: center; margin-top: 15px; flex-grow: 1; }
+        .cert-of { font-size: 22px; color: #555; font-style: italic; margin-bottom: 10px; }
+        
+        /* Candidate Name in Times New Roman */
+        .student-name { 
+            font-size: 50px; 
+            color: #222; 
+            font-weight: bold; 
+            margin: 10px 0; 
+            font-family: 'Times New Roman', serif; 
+            text-transform: uppercase;
+        }
+
+        .cert-text { font-size: 21px; color: #333; line-height: 1.6; }
+        .course-name { font-size: 34px; color: #003366; font-weight: bold; margin: 10px 0; display: block; text-decoration: underline; }
+
+        .cert-footer { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 20px; }
+        .footer-item { text-align: center; width: 220px; font-size: 15px; font-weight: bold; }
+        .footer-item hr { border: 0; border-top: 2px solid #d4af37; margin-bottom: 5px; }
+
+        .print-btn { display: none; margin-top: 15px; padding: 12px 35px; background: #d32f2f; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+
+        /* A4 Page Setup Fix */
+        @media print {
+            .search-container, .print-btn { display: none !important; }
+            body { padding: 0; margin: 0; background: white; }
+            #certificate-area { 
+                display: block !important; 
+                width: 297mm; 
+                height: 210mm; 
+                box-shadow: none; 
+                margin: 0;
+            }
+            @page { 
+                size: landscape; 
+                margin: 0; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="search-container">
+    <h2 style="color:#003366; margin-top:0;">NLEC Certificate Verification</h2>
+    <input type="text" id="rollInput" placeholder="Enrollment No.">
+    <button class="view-btn" onclick="verifyCert()">Generate</button>
+</div>
+
+<div id="certificate-area">
+    <div class="golden-border">
+        <div class="cert-header">
+            <div class="inst-name-row">
+                <img src="logo.png" onerror="this.src='https://via.placeholder.com/80'">
+                <h1>Next Level Educational Council</h1>
+            </div>
+            <p style="margin:5px 0; font-weight:bold; color:#003366;">(An Autonomous Body Registered under Govt. of India)</p>
+            <div class="reg-strip">
+                MCA (U80902UP2022NPL173638) | MSME & Niti Aayog Registered | ISO 9001:2015 Certified
+            </div>
+            <div class="govt-logos">
+                <img src="mca.png"><img src="niti.png"><img src="msme.png"><img src="skill.png"><img src="digital.png">
+            </div>
+        </div>
+
+        <div class="cert-body">
+            <p class="cert-of">This is to certify that</p>
+            <div class="student-name" id="d-name">RAVI KUMAR</div>
+            <p class="cert-text">
+                Son/Daughter of <b id="d-fname">RAM SAMUJH</b> <br>
+                having Date of Birth <b id="d-dob">15/03/2006</b> and Enrollment No <b id="d-enroll">NLEC23165001</b> <br>
+                has successfully completed the prescribed course of study in
+                <span class="course-name" id="d-course">ADCA</span>
+                and was placed in the <b>First Division</b>.
+            </p>
+        </div>
+
+        <div class="cert-footer">
+            <div class="footer-item">
+                <p>CERT NO: <span id="d-cert-no">--</span></p>
+                <p>Date: 19/01/2026</p>
+            </div>
+            <div class="footer-item"><hr><p>Controller of Examinations</p></div>
+            <div class="footer-item"><hr><p>Director & Chairman</p></div>
+        </div>
+    </div>
+</div>
+
+<button id="pBtn" class="print-btn" onclick="window.print()">Print Certificate (A4 Landscape)</button>
+
+<script>
+async function verifyCert() {
+    const roll = document.getElementById('rollInput').value.trim().toUpperCase();
+    const sheetID = "168luhhOZR6zhAyYT7jEamuuexYgqhr5b731pFBF13DI";
+    const url = `https://docs.google.com/spreadsheets/d/${sheetID}/export?format=csv`;
+
+    try {
+        const resp = await fetch(url);
+        const data = await resp.text();
+        const rows = data.split('\n').map(r => r.split(','));
+        const s = rows.find(r => r[0].trim().toUpperCase() === roll);
+
+        if(s) {
+            document.getElementById('certificate-area').style.display = 'block';
+            document.getElementById('pBtn').style.display = 'block';
+            
+            document.getElementById('d-enroll').innerText = s[0];
+            document.getElementById('d-name').innerText   = s[1];
+            document.getElementById('d-dob').innerText    = s[2];
+            document.getElementById('d-fname').innerText  = s[3];
+            document.getElementById('d-course').innerText = s[4];
+            document.getElementById('d-cert-no').innerText = "NLEC/" + s[0].slice(-8);
+        } else {
+            alert("Enrollment No. Not Found!");
+        }
+    } catch(e) { alert("Network Error!"); }
+}
+</script>
+
+</body>
+</html>S
