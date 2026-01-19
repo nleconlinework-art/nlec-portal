@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard | NLEC India</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: #f0f2f5; display: flex; flex-direction: column; min-height: 100vh; }
+
+        /* Sidebar & Layout */
+        .wrapper { display: flex; flex-wrap: wrap; }
+        
+        .sidebar { 
+            width: 280px; background: #003366; min-height: 100vh; color: white; padding: 30px 20px; 
+            text-align: center; border-right: 5px solid #ff6600;
+        }
+
+        .main-content { flex: 1; padding: 30px; }
+
+        /* Profile Section */
+        .profile-img { 
+            width: 120px; height: 120px; border-radius: 50%; border: 4px solid #ff6600; 
+            margin-bottom: 15px; object-fit: cover; background: #fff;
+        }
+        .sidebar h3 { font-size: 22px; margin-bottom: 5px; }
+        .sidebar p { font-size: 14px; opacity: 0.8; margin-bottom: 20px; }
+
+        /* Dashboard Cards */
+        .header-dash { 
+            background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;
+        }
+
+        .grid-menu { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+        
+        .card { 
+            background: white; padding: 30px; border-radius: 15px; text-align: center; 
+            box-shadow: 0 6px 20px rgba(0,0,0,0.05); transition: 0.3s; position: relative; overflow: hidden;
+        }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: #ff6600; }
+        
+        .card h3 { color: #003366; margin-bottom: 10px; font-size: 20px; }
+        .card p { color: #666; font-size: 14px; }
+
+        /* Buttons & Actions */
+        .btn-action { 
+            display: inline-block; margin-top: 15px; padding: 8px 20px; 
+            background: #003366; color: white; text-decoration: none; border-radius: 5px; font-size: 13px;
+        }
+        .logout-btn { 
+            display: block; width: 100%; padding: 12px; background: #d32f2f; color: white; 
+            text-decoration: none; border-radius: 6px; margin-top: 30px; font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { width: 100%; min-height: auto; border-right: none; border-bottom: 5px solid #ff6600; }
+            .main-content { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="sidebar">
+        <img id="user-photo" src="https://via.placeholder.com/120?text=User" alt="Student Photo" class="profile-img">
+        <h3 id="user-name">Loading...</h3>
+        <p id="user-enroll">Enroll: --</p>
+        <hr style="opacity: 0.2; margin: 20px 0;">
+        <p><strong>Course:</strong> <br><span id="user-course">--</span></p>
+        <a href="#" class="logout-btn" onclick="logout()">Logout Securely</a>
+    </div>
+
+    <div class="main-content">
+        <div class="header-dash">
+            <div>
+                <h1 style="color: #003366;">Student Dashboard</h1>
+                <p style="color: #666;">Welcome back to NLEC Learning Portal</p>
+            </div>
+            <img src="logo.png" style="height: 60px;" onerror="this.style.display='none'">
+        </div>
+
+        <div class="grid-menu">
+            <div class="card">
+                <h3>📄 Marksheet</h3>
+                <p>Download or View your final certificate result.</p>
+                <a href="result.html" class="btn-action">View Now</a>
+            </div>
+            <div class="card">
+                <h3>🎟️ Admit Card</h3>
+                <p>Available 7 days before the scheduled exam date.</p>
+                <a href="#" class="btn-action" style="background: #ccc;">Coming Soon</a>
+            </div>
+            <div class="card" style="background: #e3f2fd;">
+                <h3>💻 Online Exam</h3>
+                <p>Appear for your monthly or final assessment online.</p>
+                <a href="#" class="btn-action">Start Exam</a>
+            </div>
+            <div class="card">
+                <h3>📚 Study Material</h3>
+                <p>Access notes, PDF books, and video lectures.</p>
+                <a href="#" class="btn-action">Open Library</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // डाटा लोड करें
+    const userData = JSON.parse(sessionStorage.getItem('loggedInUser'));
+
+    if(!userData) {
+        window.location.href = "login.html"; 
+    } else {
+        document.getElementById('user-name').innerText = userData[1]; // Name
+        document.getElementById('user-enroll').innerText = "Reg No: " + userData[0]; // Enrollment
+        document.getElementById('user-course').innerText = userData[3]; // Course
+        
+        // फोटो लोड करना (अगर Column R (17) में लिंक है)
+        if(userData[17]) {
+            document.getElementById('user-photo').src = userData[17];
+        }
+    }
+
+    function logout() {
+        sessionStorage.clear();
+        window.location.href = "login.html";
+    }
+</script>
+
+</body>
+</html>

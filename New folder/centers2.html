@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authorized Centers | NLEC India</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #f4f7f6; }
+
+        /* Header Style */
+        .page-header { background: #003366; color: white; padding: 50px 5%; text-align: center; }
+        .page-header h1 { font-size: 32px; margin-bottom: 10px; }
+        .page-header p { color: #ff6600; font-weight: bold; }
+
+        .search-container { 
+            max-width: 1100px; margin: -30px auto 40px auto; 
+            background: white; padding: 30px; border-radius: 10px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Search Input */
+        .search-box { width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 5px; font-size: 16px; margin-bottom: 20px; outline: none; }
+        .search-box:focus { border-color: #ff6600; }
+
+        /* Table Styling */
+        .table-responsive { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th { background: #003366; color: white; padding: 15px; text-align: left; font-size: 14px; }
+        td { padding: 15px; border-bottom: 1px solid #eee; font-size: 14px; color: #444; }
+        tr:hover { background: #f9f9f9; }
+
+        .status-badge { background: #28a745; color: white; padding: 4px 10px; border-radius: 20px; font-size: 12px; }
+        
+        /* Home Button Style */
+        .btn-home { 
+            display: inline-block; margin-top: 20px; padding: 10px 20px; 
+            background: #ff6600; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-header">
+        <h1>Authorized Study Centers</h1>
+        <p>Verified Training Partners Across India</p>
+        <a href="home.html" class="btn-home">← Back to Home</a>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="centerSearch" class="search-box" placeholder="अपने शहर या सेंटर कोड से सर्च करें (e.g. Ghorawal, NLEC001)...">
+
+        <div class="table-responsive">
+            <table id="centerTable">
+                <thead>
+                    <tr>
+                        <th>Center Code</th>
+                        <th>Center Name</th>
+                        <th>Location (City/Dist)</th>
+                        <th>State</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>NLEC001</b></td>
+                        <td>NLEC Head Office</td>
+                        <td>Ghorawal, Sonbhadra</td>
+                        <td>Uttar Pradesh</td>
+                        <td><span class="status-badge">Active</span></td>
+                    </tr>
+                    <tr>
+                        <td><b>NLEC002</b></td>
+                        <td>Digital Computer Academy</td>
+                        <td>Robertsganj</td>
+                        <td>Uttar Pradesh</td>
+                        <td><span class="status-badge">Active</span></td>
+                    </tr>
+                    <tr>
+                        <td><b>NLEC105</b></td>
+                        <td>Apex IT Center</td>
+                        <td>Patna</td>
+                        <td>Bihar</td>
+                        <td><span class="status-badge">Active</span></td>
+                    </tr>
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Search Functionality
+        document.getElementById('centerSearch').addEventListener('keyup', function() {
+            let filter = this.value.toUpperCase();
+            let rows = document.querySelector("#centerTable tbody").rows;
+            
+            for (let i = 0; i < rows.length; i++) {
+                let text = rows[i].textContent.toUpperCase();
+                rows[i].style.display = text.includes(filter) ? "" : "none";
+            }
+        });
+    </script>
+
+</body>
+</html>
