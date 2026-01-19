@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Franchise List & Apply | NLEC India</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background-color: #f4f7f6; color: #333; }
+
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        
+        .header-title { text-align: center; margin-bottom: 40px; }
+        .header-title h1 { color: #003366; font-size: 32px; text-transform: uppercase; }
+        .header-title div { width: 70px; height: 4px; background: #d32f2f; margin: 10px auto; }
+
+        /* --- Franchise Table Style --- */
+        .table-wrapper { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 60px; overflow-x: auto; }
+        .franchise-table { width: 100%; border-collapse: collapse; min-width: 800px; }
+        .franchise-table th { background: #003366; color: white; padding: 15px; text-align: left; font-size: 14px; }
+        .franchise-table td { padding: 12px 15px; border-bottom: 1px solid #eee; font-size: 14px; vertical-align: middle; }
+        .franchise-table tr:hover { background: #f9f9f9; }
+
+        .dir-photo { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid #ddd; }
+        .status-badge { background: #28a745; color: white; padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: bold; }
+
+        /* --- Form Style --- */
+        .form-container { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 6px solid #d32f2f; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; }
+        .full-width { grid-column: span 2; }
+        .submit-btn { background: #003366; color: white; padding: 15px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; width: 100%; margin-top: 10px; }
+        .submit-btn:hover { background: #d32f2f; }
+
+        @media (max-width: 768px) { .form-grid { grid-template-columns: 1fr; } .full-width { grid-column: span 1; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <div class="header-title">
+        <h1>Authorized Franchise List</h1>
+        <div></div>
+        <p>हमारे सक्रिय केंद्रों की आधिकारिक सूची</p>
+    </div>
+
+    <div class="table-wrapper">
+        <table class="franchise-table">
+            <thead>
+                <tr>
+                    <th>Photo</th>
+                    <th>Code</th>
+                    <th>Center Name</th>
+                    <th>Director Name</th>
+                    <th>District</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><img src="p1.jpg" class="dir-photo" onerror="this.src='https://via.placeholder.com/50'"></td><td>NLEC001</td><td>NLEC Head Office</td><td>Rajesh Maurya</td><td>Sonbhadra</td><td><span class="status-badge">Active</span></td></tr>
+                <tr><td><img src="p2.jpg" class="dir-photo" onerror="this.src='https://via.placeholder.com/50'"></td><td>NLEC002</td><td>MS Computer Academy</td><td>Amit Kumar</td><td>Varanasi</td><td><span class="status-badge">Active</span></td></tr>
+                <tr><td><img src="p3.jpg" class="dir-photo" onerror="this.src='https://via.placeholder.com/50'"></td><td>Global Tech Institute</td><td>Anjali Singh</td><td>Mirzapur</td><td><span class="status-badge">Active</span></td></tr>
+                <tr><td><img src="p4.jpg" class="dir-photo" onerror="this.src='https://via.placeholder.com/50'"></td><td>Digital World Center</td><td>Vikash Verma</td><td>Chandauli</td><td><span class="status-badge">Active</span></td></tr>
+                <tr><td><img src="p5.jpg" class="dir-photo" onerror="this.src='https://via.placeholder.com/50'"></td><td>Ideal Education Point</td><td>Suresh Pal</td><td>Lucknow</td><td><span class="status-badge">Active</span></td></tr>
+                <tr><td><img src="p6.jpg" class="dir-photo" onerror="this.src='https://via.placeholder.com/50'"></td><td>Smart Skills Hub</td><td>Pooja Devi</td><td>Prayagraj</td><td><span class="status-badge">Active</span></td></tr>
+                <tr><td><img src="p7.jpg" class="dir-photo" onerror="this.src='https://via.placeholder.com/50'"></td><td>Apex Computer Classes</td><td>Ravi Gupta</td><td>Ghazipur</td><td><span class="status-badge">Active</span></td></tr>
+                <tr><td><img src="p8.jpg" class="dir-photo" onerror="this.src='https://via.placeholder.com/50'"></td><td>Modern Tech Solution</td><td>Sunil Yadav</td><td>Jaunpur</td><td><span class="status-badge">Active</span></td></tr>
+                <tr><td><img src="p9.jpg" class="dir-photo" onerror="this.src='https://via.placeholder.com/50'"></td><td>Future Bright Center</td><td>Manish Rai</td><td>Azamgarh</td><td><span class="status-badge">Active</span></td></tr>
+                <tr><td><img src="p10.jpg" class="dir-photo" onerror="this.src='https://via.placeholder.com/50'"></td><td>NLEC Star Academy</td><td>Kiran Maurya</td><td>Robertsganj</td><td><span class="status-badge">Active</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="header-title">
+        <h1>Apply for Franchise</h1>
+        <div></div>
+        <p>अपना नया सेंटर शुरू करने के लिए फॉर्म भरें</p>
+    </div>
+
+    <div class="form-container">
+        <form>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Applicant Name</label>
+                    <input type="text" placeholder="पूरा नाम लिखें">
+                </div>
+                <div class="form-group">
+                    <label>Father/Husband Name</label>
+                    <input type="text" placeholder="पिता/पति का नाम">
+                </div>
+                <div class="form-group">
+                    <label>Mobile Number (WhatsApp)</label>
+                    <input type="tel" placeholder="अपना व्हाट्सएप नंबर">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="email@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Center State</label>
+                    <select>
+                        <option>Uttar Pradesh</option>
+                        <option>Bihar</option>
+                        <option>Madhya Pradesh</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Center District</label>
+                    <input type="text" placeholder="जिले का नाम">
+                </div>
+                <div class="form-group full-width">
+                    <label>Proposed Center Address</label>
+                    <textarea rows="3" placeholder="सेंटर का पूरा पता लिखें"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>No. of Computers</label>
+                    <input type="number" placeholder="कंप्यूटरों की संख्या">
+                </div>
+                <div class="form-group">
+                    <label>Educational Qualification</label>
+                    <input type="text" placeholder="आपकी योग्यता">
+                </div>
+            </div>
+            <button type="submit" class="submit-btn">SUBMIT FRANCHISE REQUEST</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification | Next Level Educational Council</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f0f2f5; color: #333; }
+        header { background-color: #003366; color: white; padding: 20px; text-align: center; }
+        nav { background: #002244; padding: 12px; text-align: center; }
+        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
+        
+        .verify-section { 
+            max-width: 500px; 
+            margin: 50px auto; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .verify-section h2 { color: #003366; margin-bottom: 20px; }
+        
+        input[type="text"] {
+            width: 80%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .btn-verify {
+            background: #ff6600;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .btn-verify:hover { background: #e65c00; }
+        
+        #resultBox {
+            margin-top: 25px;
+            padding: 15px;
+            display: none; /* शुरुआत में छुपा रहेगा */
+            border-top: 2px solid #eee;
+            text-align: left;
+        }
+        .status-success { color: green; font-weight: bold; }
+        
+        footer { background: #222; color: white; text-align: center; padding: 15px; position: fixed; bottom: 0; width: 100%; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Next Level Educational Council</h1>
+    <p>Official Verification Portal</p>
+</header>
+
+<nav>
+    <a href="#">Home</a>
+    <a href="#">Courses</a>
+    <a href="#">Verification</a>
+    <a href="#">Contact</a>
+</nav>
+
+<div class="verify-section">
+    <h2>Student Verification</h2>
+    <p>सर्टिफिकेट की जांच के लिए रोल नंबर दर्ज करें:</p>
+    
+    <input type="text" id="rollNumber" placeholder="Roll Number दर्ज करें (उदा: 12345)">
+    <br>
+    <button class="btn-verify" onclick="verifyStudent()">Verify Now</button>
+
+    <div id="resultBox">
+        <h3 id="studentName"></h3>
+        <p><strong>Course:</strong> <span id="courseName"></span></p>
+        <p><strong>Status:</strong> <span class="status-success">Verified ✓</span></p>
+        <p><strong>Grade:</strong> A+</p>
+    </div>
+</div>
+
+<script>
+    function verifyStudent() {
+        var roll = document.getElementById("rollNumber").value;
+        var resultBox = document.getElementById("resultBox");
+        
+        // डेमो के लिए एक रोल नंबर चेक (असली साइट में यह डेटाबेस से जुड़ता है)
+        if(roll === "12345") {
+            resultBox.style.display = "block";
+            document.getElementById("studentName").innerText = "Student Name: Ramesh Kumar";
+            document.getElementById("courseName").innerText = "Diploma in Computer Science";
+        } else if(roll === "") {
+            alert("कृपया रोल नंबर दर्ज करें!");
+        } else {
+            alert("क्षमा करें! यह रोल नंबर हमारे रिकॉर्ड में नहीं है।");
+            resultBox.style.display = "none";
+        }
+    }
+</script>
+
+<footer>
+    &copy; 2026 Next Level Educational Council | Verified Education
+</footer>
+
+</body>
+</html>
